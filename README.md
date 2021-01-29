@@ -1,2 +1,3 @@
 - test branch Schedule
-  - 01-29T10 Try to replace section "Princing" to "Schedule"
+  - 01-29T10 Try to replace section "Contact" to "Schedule"
+  - 01-29T20 Try to add a new page with devexpress/dx-react-scheduler inside
