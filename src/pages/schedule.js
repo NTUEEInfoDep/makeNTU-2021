@@ -7,7 +7,7 @@ import {
   Appointments,
 } from "@devexpress/dx-react-scheduler-material-ui";
 
-import { data } from "./data";
+import { data } from "../assets/data";
 
 const Appointment = ({ children, style, ...restProps }) => (
   <Appointments.Appointment
