@@ -7,6 +7,7 @@ import Services from "sections/services";
 import Pricing from "sections/pricing";
 import Contact from "sections/contact";
 import PageNotFound from "sections/pageNotFound";
+import Sponsors from "sections/sponsors";
 
 // Dynamically import or require sections inside the section folder
 const components = {
@@ -17,6 +18,7 @@ const components = {
     Pricing,
     Contact,
     PageNotFound,
+    Sponsors,
 };
 
 const Section = ({ contentModuleId, type }) => {
