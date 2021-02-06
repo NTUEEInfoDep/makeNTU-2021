@@ -28,19 +28,16 @@ const Sponsors = ({ contentModuleId }) => {
      const content = data.allContentfulLayoutSponsors.edges.find(edge => edge.node.id === contentModuleId);
 
     return (
-        <section id="sponsors" className="bg-gray">
+        <section id="sponsors" className="section mx-auto">
             <div className="container mx-auto">
-                <h2 className="text-center section__title">{ content.node.heading }</h2>
-            </div>
-            <div
-                className="mx-auto sponsors__image-wrap"
-                /*data-sal="slide-up"
-                data-sal-delay="200"
-                data-sal-duration="500"*/
-            >
-                <a href={ content.node.href }>
-                    <Img fluid={ content.node.image.fluid } />
-                </a>
+                <div className="mx-auto">
+                    <h2 className="section__title text-center mb-16">{ content.node.heading }</h2>
+                </div>
+                <div className="sponsors__image sponsors__image-wrap mx-auto">
+                    <a href={ content.node.href }>
+                        <Img fluid={ content.node.image.fluid } />
+                    </a>
+                </div>
             </div>
         </section>
     );

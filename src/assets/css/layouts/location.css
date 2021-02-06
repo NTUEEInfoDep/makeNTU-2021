@@ -1,0 +1,18 @@
+.iframe-rwd {
+    position: relative;
+    padding-bottom: 60%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+.iframe-rwd iframe {
+    position: absolute;
+    top: 0%;
+    left: 15%;
+    width: 70%;
+    height: 100%;
+    @apply mx-auto
+}
+.location__description {
+    @apply font-bold text-xl mb-4;
+}

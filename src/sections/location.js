@@ -30,14 +30,16 @@ const Location = ({ contentModuleId }) => {
     const content = data.allContentfulLayoutLocation.edges.find(edge => edge.node.id === contentModuleId);
 
     return (
-        <section id="location" className="bg-gray">
+        <section id="location" className="section bg-gray mx-auto">
+          <div className="container mx-auto">
             <div>
-                <h2 className="text-center section__title center-align">{ content.node.heading }</h2>
-                <h3 className="text-center">{ content.node.description }</h3>
+                <h2 className="text-center section__title mb-16">{ content.node.heading }</h2>
+                <h3 className="mx-auto text-center location__description">{ content.node.description }</h3>
             </div>
-            <div className="center">
+            <div className="iframe-rwd">
                 <Map feature={ content.node.location }/>
             </div>
+          </div>
         </section>
     );
 };
