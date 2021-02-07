@@ -7,33 +7,35 @@ import Services from "sections/services";
 import Pricing from "sections/pricing";
 import Contact from "sections/contact";
 import PageNotFound from "sections/pageNotFound";
+import Timeline from "sections/timeline";
 
 // Dynamically import or require sections inside the section folder
 const components = {
-    Hero,
-    About,
-    Testimonials,
-    Services,
-    Pricing,
-    Contact,
-    PageNotFound,
+  Hero,
+  About,
+  Testimonials,
+  Services,
+  Pricing,
+  Contact,
+  PageNotFound,
+  Timeline,
 };
 
 const Section = ({ contentModuleId, type }) => {
-    const component = type.split("Layout")[1];
+  const component = type.split("Layout")[1];
 
-    if (typeof components[component] === "undefined") {
-        return "";
-    }
+  if (typeof components[component] === "undefined") {
+    return "";
+  }
 
-    return React.createElement(components[component], {
-        contentModuleId,
-    });
+  return React.createElement(components[component], {
+    contentModuleId,
+  });
 };
 
 Section.prototype = {
-    contentModuleId: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
+  contentModuleId: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default Section;
