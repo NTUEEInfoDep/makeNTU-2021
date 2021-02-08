@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+/*import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
@@ -70,4 +70,4 @@ Contact.propTypes = {
     contentModuleId : PropTypes.string.isRequired
 }
 
-export default Contact;
+export default Contact;*/

@@ -17,7 +17,7 @@ const components = {
     Testimonials,
     Services,
     Pricing,
-    Contact,
+    //Contact,
     PageNotFound,
     Sponsors,
     Location
