@@ -8,7 +8,6 @@
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
-    grid-template-rows: repeat(auto-fit, minmax(200px, 300px));
     grid-gap: 5vmin;
 }
 
@@ -16,7 +15,7 @@
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border: none;
-    background-color: #5654ce;
+    background-color: #5a58d4;
     color: #ffffff;
     text-align: center;
     font-size: 21px;

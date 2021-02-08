@@ -57,15 +57,18 @@ export default function PostTemplate({ data }) {
     // const menus = data.contentfulLayout.menu;
 
     return (
-        <Layout menus={null}>
+        <Layout menus={null} back={true}>
             <SEO title={title} description={description} />
             <div className="heroImage-container container section mx-auto">
                 <Img className="heroImage" alt={post.title} fluid={post.heroImage.fluid} />
             </div>
             <div className="post container section mx-auto">
-                <h2 className="w-full md:w-3/4 font-bold text-5xl leading-none mb-6">{post.title}</h2>
-                <p className="w-full md:w-3/4">{post.publishDate}</p>
+                <h2 className="w-full md:w-3/4 font-semibold text-4xl leading-none mb-0">{post.title}</h2>
+                <p className="font-medium mb-3" style={{ color: "gray" }}>
+                    {post.publishDate}
+                </p>
                 <div
+                    className="text-xl"
                     dangerouslySetInnerHTML={{
                         __html: post.body.childMarkdownRemark.html,
                     }}

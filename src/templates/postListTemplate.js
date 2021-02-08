@@ -58,12 +58,20 @@ export default function PostListTemplate({ data, pageContext }) {
     const menus = data.contentfulLayout.menu;
 
     return (
-        <Layout menus={menus}>
+        <Layout menus={menus} back={true}>
             <SEO title={title} description={description} />
             <section id="posts" className="posts section">
                 <div className="container mx-auto">
+                    {/* <div style={{ display: "flex", alignContent: "center" }}>
+                        <button className="material-icons" style={{ fontSize: 45 }}>
+                            keyboard_arrow_left
+                        </button>
+                        <span className="service__title" style={{ fontSize: 25, margin: 0 }}>
+                            Return
+                        </span>
+                    </div> */}
                     <h2 className="section__title text-center mb-16" data-sal="fade" data-sal-easing="ease-in-cubic">
-                        All Posts{" "}
+                        所有貼文{" "}
                         <span style={{ color: "gray", fontSize: 20 }}>— {data.allContentfulPost.totalCount} Posts</span>
                     </h2>
                     <ul style={{ minHeight: 150 }}>

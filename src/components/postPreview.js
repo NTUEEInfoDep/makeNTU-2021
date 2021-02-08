@@ -7,16 +7,20 @@ import "../assets/css/components/postPreview.css";
 
 const postPreview = ({ post }) => (
     <div className="preview">
-        <Img alt="" fluid={post.heroImage.fluid} />
-        <h3 className="previewTitle">
-            <Link to={`/post/${post.slug}`}>{post.title}</Link>
-        </h3>
-        <small>{post.publishDate}</small>
-        <div
-            dangerouslySetInnerHTML={{
-                __html: post.description.content,
-            }}
-        />
+        <Link to={`/post/${post.slug}`}>
+            <Img alt="" fluid={post.heroImage.fluid} />
+            <h3 className="service__title" style={{ marginTop: "0.5rem", marginBottom: 0, fontWeight: 500 }}>
+                {post.title}
+            </h3>
+            <p className="font-medium" style={{ color: "gray" }}>
+                {post.publishDate}
+            </p>
+            <div
+                dangerouslySetInnerHTML={{
+                    __html: post.description.content,
+                }}
+            />
+        </Link>
         {post.tags &&
             post.tags.map((tag) => (
                 <p className="tag" key={tag}>
