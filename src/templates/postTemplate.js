@@ -2,7 +2,7 @@ import React from "react";
 import Img from "gatsby-image";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import "templates/postTemplate.css";
 
 export const query = graphql`
@@ -30,6 +30,12 @@ export const query = graphql`
                     html
                 }
             }
+            files {
+                file {
+                    fileName
+                    url
+                }
+            }
         }
         contentfulLayout(slug: { eq: $layoutSlug }) {
             id
@@ -54,7 +60,7 @@ export default function PostTemplate({ data }) {
     const post = data.contentfulPost;
     const title = data.contentfulLayout.title;
     const description = data.contentfulLayout.description;
-    // const menus = data.contentfulLayout.menu;
+    const files = post.files;
 
     return (
         <Layout menus={null} back={true}>
@@ -68,11 +74,48 @@ export default function PostTemplate({ data }) {
                     {post.publishDate}
                 </p>
                 <div
-                    className="text-xl"
+                    className="post-body"
                     dangerouslySetInnerHTML={{
                         __html: post.body.childMarkdownRemark.html,
                     }}
                 />
+                {files ? (
+                    <div>
+                        <hr></hr>
+                        <p className="text-2xl text-bold mb-5">文章附件：</p>
+                        <div className="file-container">
+                            {files.map((file) => {
+                                const url = file.file.url;
+                                try {
+                                    if (url.slice(0, 2) === "//") {
+                                        url = `https:${url}`;
+                                    } else if (url.slice(0, 4) === "http") {
+                                        url = url;
+                                    } else {
+                                        throw new Error(`Invalid file download URL: '${url}'`);
+                                    }
+                                } catch (e) {
+                                    console.error(e);
+                                }
+                                return (
+                                    <Link to={url}>
+                                        <div style={{ display: "flex", flexDirection: "column" }}>
+                                            <i
+                                                className="material-icons text-primary text-4xl"
+                                                style={{ textAlign: "center" }}
+                                            >
+                                                sim_card_download
+                                            </i>
+                                            <p style={{ textAlign: "center", wordWrap: "break-word" }}>
+                                                {file.file.fileName}
+                                            </p>
+                                        </div>
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                    </div>
+                ) : null}
             </div>
         </Layout>
     );
