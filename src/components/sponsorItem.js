@@ -2,7 +2,7 @@ import React from 'react';
 import Img from 'gatsby-image';
 
 const SponsorItem = ({ href, fluid }) => (
-    <td width="20%">
+    <td width="20%" className="sponsors__image-wrap tableItem">
         <a href={ href }>
             <Img fluid={ fluid }/>
         </a>
@@ -16,12 +16,11 @@ const SponsorTable = ({ feature }) => {
             const f = feature.splice(0, 4);
             k.push(f);
         }
-        console.log(k);
         return(
-            <table width="70%" className="mx-auto">
+            <table width="65%" className="mx-auto">
                 <tbody>
                     {k.map((index) => (
-                        <tr>
+                        <tr height="140px">
                             {index.map((sponsor) => (
                                 <SponsorItem href={ sponsor.description } fluid={ sponsor.fluid } />
                             ))}

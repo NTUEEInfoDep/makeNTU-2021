@@ -32,12 +32,14 @@ const Location = ({ contentModuleId }) => {
     return (
         <section id="location" className="section bg-gray mx-auto">
           <div className="container mx-auto">
-            <div>
+            <div className="mx-auto">
                 <h2 className="text-center section__title mb-16">{ content.node.heading }</h2>
                 <h3 className="mx-auto text-center location__description">{ content.node.description }</h3>
             </div>
-            <div className="iframe-rwd">
+            <div>
+              <div className="iframe-rwd mx-auto">
                 <Map feature={ content.node.location }/>
+              </div>
             </div>
           </div>
         </section>
