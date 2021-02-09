@@ -4,7 +4,7 @@ require("dotenv").config({
 
 module.exports = {
     siteMetadata: {
-        title: `2021 makeNTU: Cabin Fever`,
+        title: `2021makeNTU: CabinFever`,
         description: `A One-page Gatsby for makeNTU2021`,
         author: `NTUEEInfoDep`,
     },

@@ -2,10 +2,9 @@
     @apply flex justify-between text-3xl mx-auto py-4 px-4;
     font-family: "Advent Pro";
     padding-bottom: 0.5rem;
-    width: 100%;
 }
 
 .header__title {
     font-family: "Geostar";
-    font-size: 2rem;
+    font-size: min(7vw, 2rem);
 }

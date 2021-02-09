@@ -60,8 +60,8 @@ export default function PostListTemplate({ data, pageContext }) {
     return (
         <Layout menus={menus} back={true}>
             <SEO title={title} description={description} />
-            <section id="posts" className="posts section">
-                <div className="container mx-auto">
+            <section id="posts" className="posts section pt-5">
+                <div className="container mx-auto" style={{ maxWidth: "1000px" }}>
                     {/* <div style={{ display: "flex", alignContent: "center" }}>
                         <button className="material-icons" style={{ fontSize: 45 }}>
                             keyboard_arrow_left
@@ -74,7 +74,8 @@ export default function PostListTemplate({ data, pageContext }) {
                         所有貼文{" "}
                         <span style={{ color: "gray", fontSize: 20 }}>— {data.allContentfulPost.totalCount} Posts</span>
                     </h2>
-                    <ul style={{ minHeight: 150 }}>
+                    <hr></hr>
+                    <ul style={{ minHeight: 150, marginBottom: "80px" }}>
                         {data.allContentfulPost.edges.map(({ node }) => (
                             <li key={node.slug} style={{ marginBottom: 20 }}>
                                 <Link to={`/post/${node.slug}`}>
@@ -84,6 +85,7 @@ export default function PostListTemplate({ data, pageContext }) {
                                     </h3>
                                 </Link>
                                 <p style={{ fontSize: 18, marginLeft: 2 }}>{node.body.childMarkdownRemark.excerpt}</p>
+                                <hr></hr>
                             </li>
                         ))}
                     </ul>
