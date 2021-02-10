@@ -2,9 +2,7 @@ import React from "react";
 
 import { createMuiTheme, makeStyles } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
+import { Typography, Paper, Grid } from "@material-ui/core";
 
 import Timeline from "@material-ui/lab/Timeline";
 import TimelineItem from "@material-ui/lab/TimelineItem";
@@ -36,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MatUITimeline = () => {
+export default function MatUITimeline() {
   const classes = useStyles();
 
   const EventDate = (props) => (
@@ -134,7 +132,7 @@ const MatUITimeline = () => {
     <section id="timeline" className="section bg-gray mx-auto">
       <div className="container mx-auto">
         <div>
-          <h2 className="text-center section__title mb-16">Timeline</h2>
+          <h2 className="text-center section__title mb-16">活動時程</h2>
         </div>
         <div className={classes.root}>
           <ThemeProvider theme={theme}>
@@ -143,7 +141,7 @@ const MatUITimeline = () => {
               direction="row"
               justify="center"
               alignItems="flex-start"
-              spacing={2}
+              spacing={10}
             >
               <Grid item>
                 <Paper className={classes.paper}>
@@ -178,6 +176,4 @@ const MatUITimeline = () => {
       </div>
     </section>
   );
-};
-
-export default MatUITimeline;
+}
