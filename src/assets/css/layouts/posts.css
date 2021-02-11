@@ -7,7 +7,7 @@
     list-style: none;
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 250px));
     grid-gap: 5vmin;
 }
 
@@ -48,4 +48,79 @@
 .post-btn:hover span:after {
     opacity: 1;
     right: 0;
+}
+
+.postlist-item {
+    padding: 30px 30px;
+    border: none;
+    position: relative;
+    cursor: pointer;
+
+    &:after,
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        border: 2px solid rgb(130, 130, 130);
+        transition: transform 0.2s;
+    }
+
+    &:after {
+        transform: translate(3px, 3px);
+    }
+
+    &:before {
+        transform: translate(-3px, -3px);
+    }
+    &:hover {
+        &:after,
+        &:before {
+            transform: translate(0);
+        }
+    }
+}
+
+.hover,
+.hover-red {
+    margin: 30px 15px;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+}
+
+.hover:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 5px;
+    bottom: 0;
+    left: 0;
+    background-color: #6c63ff;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.hover-red:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 5px;
+    bottom: 0;
+    left: 0;
+    background-color: #e95c49;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.hover:hover:after,
+.hover-red:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
 }

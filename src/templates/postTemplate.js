@@ -67,66 +67,68 @@ export default function PostTemplate({ data }) {
     return (
         <Layout menus={null} back={true}>
             <SEO title={title} description={description} />
-            <div className="heroImage-container container section mx-auto">
-                <Img className="heroImage" alt={post.title} fluid={post.heroImage.fluid} />
-            </div>
-            <div className="post container section mx-auto mb-20">
-                <h2 className="w-full font-semibold text-4xl leading-none mb-0">{post.title}</h2>
-                <p className="font-medium mb-3" style={{ color: "gray" }}>
-                    {post.publishDate}
-                </p>
-                <div
-                    className="post-body"
-                    dangerouslySetInnerHTML={{
-                        __html: post.body.childMarkdownRemark.html,
-                    }}
-                />
-                <br></br>
-                {post.videoUrl && (
-                    <div>
-                        {post.videoUrl.map((url) => (
-                            <div className="video-container">
-                                <ReactPlayer url={url} width="min(90vw, 640px)" />
-                            </div>
-                        ))}
-                    </div>
-                )}
-                {files ? (
-                    <div>
-                        <hr></hr>
-                        <p className="text-2xl text-bold mb-5">文章附件：</p>
-                        <div className="file-container">
-                            {files.map((file) => {
-                                var url = file.file.url;
-                                try {
-                                    if (url.slice(0, 2) === "//") {
-                                        url = `https:${url}`;
-                                    } else if (url.slice(0, 4) === "http") {
-                                    } else {
-                                        throw new Error(`Invalid file download URL: '${url}'`);
-                                    }
-                                } catch (e) {
-                                    console.error(e);
-                                }
-                                return (
-                                    <Link to={url}>
-                                        <div style={{ display: "flex", flexDirection: "column" }}>
-                                            <i
-                                                className="material-icons text-primary text-4xl"
-                                                style={{ textAlign: "center" }}
-                                            >
-                                                sim_card_download
-                                            </i>
-                                            <p style={{ textAlign: "center", wordWrap: "break-word" }}>
-                                                {file.file.fileName}
-                                            </p>
-                                        </div>
-                                    </Link>
-                                );
-                            })}
+            <div>
+                <div className="heroImage-container container section mx-auto" style={{ maxWidth: "1000px" }}>
+                    <Img className="heroImage" alt={post.title} fluid={post.heroImage.fluid} />
+                </div>
+                <div className="post container section mx-auto mb-20" style={{ maxWidth: "1000px" }}>
+                    <h2 className="w-full font-medium text-4xl leading-none mb-0">{post.title}</h2>
+                    <p className="font-normal mb-3" style={{ color: "gray" }}>
+                        {post.publishDate}
+                    </p>
+                    <div
+                        className="post-body"
+                        dangerouslySetInnerHTML={{
+                            __html: post.body.childMarkdownRemark.html,
+                        }}
+                    />
+                    <br></br>
+                    {post.videoUrl && (
+                        <div>
+                            {post.videoUrl.map((url) => (
+                                <div className="video-container">
+                                    <ReactPlayer url={url} width="min(90vw, 640px)" />
+                                </div>
+                            ))}
                         </div>
-                    </div>
-                ) : null}
+                    )}
+                    {files ? (
+                        <div>
+                            <hr></hr>
+                            <p className="text-2xl text-bold mb-5">文章附件：</p>
+                            <div className="file-container">
+                                {files.map((file) => {
+                                    var url = file.file.url;
+                                    try {
+                                        if (url.slice(0, 2) === "//") {
+                                            url = `https:${url}`;
+                                        } else if (url.slice(0, 4) === "http") {
+                                        } else {
+                                            throw new Error(`Invalid file download URL: '${url}'`);
+                                        }
+                                    } catch (e) {
+                                        console.error(e);
+                                    }
+                                    return (
+                                        <Link to={url}>
+                                            <div style={{ display: "flex", flexDirection: "column" }}>
+                                                <i
+                                                    className="material-icons text-primary text-4xl"
+                                                    style={{ textAlign: "center" }}
+                                                >
+                                                    sim_card_download
+                                                </i>
+                                                <p style={{ textAlign: "center", wordWrap: "break-word" }}>
+                                                    {file.file.fileName}
+                                                </p>
+                                            </div>
+                                        </Link>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    ) : null}
+                </div>
             </div>
         </Layout>
     );

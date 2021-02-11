@@ -22,6 +22,7 @@ const Posts = ({ contentModuleId }) => {
                             publishDate(formatString: "MMMM Do, YYYY")
                             tags
                             heroImage {
+                                title
                                 fluid(maxWidth: 350, maxHeight: 196, resizingBehavior: SCALE) {
                                     ...GatsbyContentfulFluid_tracedSVG
                                 }
@@ -47,10 +48,21 @@ const Posts = ({ contentModuleId }) => {
                 </h2>
                 <ul className="post-list" data-sal="fade" data-sal-easing="ease-in-cubic">
                     {content.node.posts.map((post) => {
+                        if (post.tags.includes("important")) {
+                            return (
+                                <Link className="hover-red uppercase" to={`/post/${post.slug}`}>
+                                    <li className="mb-10" key={post.slug} id={post.slug}>
+                                        <PostPreview post={post} key={post.id} />
+                                    </li>
+                                </Link>
+                            );
+                        }
                         return (
-                            <li key={post.slug}>
-                                <PostPreview post={post} key={post.id} />
-                            </li>
+                            <Link className="hover uppercase" to={`/post/${post.slug}`}>
+                                <li className="mb-8" key={post.slug} id={post.slug}>
+                                    <PostPreview post={post} key={post.id} />
+                                </li>
+                            </Link>
                         );
                     })}
                 </ul>
