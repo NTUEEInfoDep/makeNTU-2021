@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function HyChouTimeline() {
-  const data = useStaticQuery(graphql`
+  const staticQueryData = useStaticQuery(graphql`
     {
       allContentfulTimelineData {
         edges {
@@ -51,27 +51,24 @@ export default function HyChouTimeline() {
       }
     }
   `);
-  const day = data.allContentfulTimelineData.edges[0].node.data.days;
-  const day1 = day[0];
-  const day1event1 = day[0].events[0];
-  // return <pre>{JSON.stringify(day1, null, 4)}</pre>;
+  const timeline = staticQueryData.allContentfulTimelineData.edges[0].node.data;
 
   const classes = useStyles();
 
   const TimelineIcon = (props) => {
-    if (props.icon === "BuildIcon") {
+    if (props.type === "BuildIcon") {
       return <BuildIcon />;
-    } else if (props.icon === "Brightness2Icon") {
+    } else if (props.type === "Brightness2Icon") {
       return <Brightness2Icon />;
-    } else if (props.icon === "Brightness7Icon") {
+    } else if (props.type === "Brightness7Icon") {
       return <Brightness7Icon />;
-    } else if (props.icon === "RestaurantIcon") {
+    } else if (props.type === "RestaurantIcon") {
       return <RestaurantIcon />;
-    } else if (props.icon === "HowToRegIcon") {
+    } else if (props.type === "HowToRegIcon") {
       return <HowToRegIcon />;
-    } else if (props.icon === "EqualizerIcon") {
+    } else if (props.type === "EqualizerIcon") {
       return <EqualizerIcon />;
-    } else if (props.icon === "PollIcon") {
+    } else if (props.type === "PollIcon") {
       return <PollIcon />;
     } else {
       return <BuildIcon />;
@@ -80,66 +77,102 @@ export default function HyChouTimeline() {
 
   const Event = (props) => {
     return (
-      <Box>
+      <Box minWidth={250}>
         <Grid
           container
           direction="row"
-          justify="space-evenly"
+          justify="center"
           alignItems="center"
           spacing={1}
         >
           <Grid item xs={4}>
-            <Box textAlign="right">
-              <Typography color={props.data.color || "primary"}>
-                {props.data.time || "error"}
-              </Typography>
-            </Box>
+            <Typography color={props.event.color || "primary"}>
+              <Box textAlign="right">{props.event.time || "error"}</Box>
+            </Typography>
           </Grid>
           <Grid item>
             <Box>
               <Avatar className={classes.avatar}>
-                <TimelineIcon icon={props.data.icon} />
+                <TimelineIcon type={props.event.icon} />
               </Avatar>
             </Box>
           </Grid>
           <Grid item xs={4}>
-            <Typography color={props.data.color || "primary"}>
+            <Typography color={props.event.color || "primary"}>
               <Box textAlign="left" overflow="visable" whiteSpace="nowrap">
-                {props.data.text || "error"}
+                {props.event.text || "error"}
               </Box>
             </Typography>
           </Grid>
         </Grid>
-        <Box my={-1.2} textAlign="center">
-          <Typography color="primary">{props.data.end ? "" : "|"}</Typography>
-        </Box>
+        <Typography color="primary">
+          <Box my={-1.2} textAlign="center">
+            {props.event.end ? "" : "|"}
+          </Box>
+        </Typography>
       </Box>
     );
   };
 
-  const Date = (props) => {
+  const Events = (props) => {
+    if (props.count === 6) {
+      return (
+        <>
+          <Event event={props.events[0]} />
+          <Event event={props.events[1]} />
+          <Event event={props.events[2]} />
+          <Event event={props.events[3]} />
+          <Event event={props.events[4]} />
+          <Event event={props.events[5]} />
+        </>
+      );
+    } else if (props.count === 7) {
+      return (
+        <>
+          <Event event={props.events[0]} />
+          <Event event={props.events[1]} />
+          <Event event={props.events[2]} />
+          <Event event={props.events[3]} />
+          <Event event={props.events[4]} />
+          <Event event={props.events[5]} />
+          <Event event={props.events[6]} />
+        </>
+      );
+    }
+  };
+
+  const Day = (props) => {
     return (
       <Grid item>
         <Paper elevation={3} className={classes.paper}>
           <Box py={2}>
-            <Box mb={3} textAlign="center">
-              <Typography variant="h5" color="primary">
-                {props.date}
-              </Typography>
-            </Box>
-            {props.children}
+            <Typography variant="h5" color="primary">
+              <Box mb={3} textAlign="center">
+                {props.day.date}
+              </Box>
+            </Typography>
+            <Events count={props.day.eventCount} events={props.day.events} />
           </Box>
         </Paper>
       </Grid>
     );
   };
 
+  const Days = (props) => {
+    if (props.count === 2) {
+      return (
+        <>
+          <Day day={props.days[0]} />
+          <Day day={props.days[1]} />
+        </>
+      );
+    }
+  };
+
   return (
     <section className="section bg-gray">
       <div className="container mx-auto">
-        <div>
-          <h2 className="text-center section__title mb-16">活動時程</h2>
-        </div>
+        <h2 className="text-center section__title mb-16">活動時程</h2>
         <div className={classes.root}>
           <ThemeProvider theme={theme}>
             <Grid
@@ -149,14 +182,7 @@ export default function HyChouTimeline() {
               alignItems="flex-start"
               spacing={5}
             >
-              <Date date="5 / 8">
-                <Event data={day[0].events[0]} />
-                <Event data={day[0].events[1]} />
-                <Event data={day[0].events[2]} />
-                <Event data={day[0].events[3]} />
-                <Event data={day[0].events[4]} />
-                <Event data={day[0].events[5]} />
-              </Date>
+              <Days count={timeline.dayCount} days={timeline.days} />
             </Grid>
           </ThemeProvider>
         </div>
