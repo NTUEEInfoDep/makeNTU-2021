@@ -21,9 +21,7 @@ const theme = createMuiTheme({
 });
 
 const useStyles = makeStyles((theme) => ({
-  avatar: {
-    backgroundColor: "#E3B600",
-  },
+  avatar: { backgroundColor: "#E3B600" },
   paper: { padding: theme.spacing(2, 8) },
 }));
 
@@ -60,6 +58,26 @@ export default function HyChouTimeline() {
 
   const classes = useStyles();
 
+  const TimelineIcon = (props) => {
+    if (props.icon === "BuildIcon") {
+      return <BuildIcon />;
+    } else if (props.icon === "Brightness2Icon") {
+      return <Brightness2Icon />;
+    } else if (props.icon === "Brightness7Icon") {
+      return <Brightness7Icon />;
+    } else if (props.icon === "RestaurantIcon") {
+      return <RestaurantIcon />;
+    } else if (props.icon === "HowToRegIcon") {
+      return <HowToRegIcon />;
+    } else if (props.icon === "EqualizerIcon") {
+      return <EqualizerIcon />;
+    } else if (props.icon === "PollIcon") {
+      return <PollIcon />;
+    } else {
+      return <BuildIcon />;
+    }
+  };
+
   const Event = (props) => {
     return (
       <Box>
@@ -71,29 +89,29 @@ export default function HyChouTimeline() {
           spacing={1}
         >
           <Grid item xs={4}>
-            <Box textAlign="center">
-              <Typography variant="subtitle1" color={props.color || "primary"}>
-                {props.left || "error"}
+            <Box textAlign="right">
+              <Typography color={props.data.color || "primary"}>
+                {props.data.time || "error"}
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={3}>
-            <Box textAlign="center">
-              <Avatar className={classes.avatar}>{props.children}</Avatar>
+          <Grid item>
+            <Box>
+              <Avatar className={classes.avatar}>
+                <TimelineIcon icon={props.data.icon} />
+              </Avatar>
             </Box>
           </Grid>
           <Grid item xs={4}>
-            <Box textAlign="left" overflow="visible" whiteSpace="nowrap">
-              <Typography variant="subtitle1" color={props.color || "primary"}>
-                {props.right || "error"}
-              </Typography>
-            </Box>
+            <Typography color={props.data.color || "primary"}>
+              <Box textAlign="left" overflow="visable" whiteSpace="nowrap">
+                {props.data.text || "error"}
+              </Box>
+            </Typography>
           </Grid>
         </Grid>
-        <Box my={-1.5} textAlign="center">
-          <Typography variant="subtitle1" color="primary">
-            {props.next || "|"}
-          </Typography>
+        <Box my={-1.2} textAlign="center">
+          <Typography color="primary">{props.data.end ? "" : "|"}</Typography>
         </Box>
       </Box>
     );
@@ -132,47 +150,12 @@ export default function HyChouTimeline() {
               spacing={5}
             >
               <Date date="5 / 8">
-                <Event left="09:00" right="報到" color="primary">
-                  <HowToRegIcon />
-                </Event>
-                <Event left="10:00" right="開幕" color="primary">
-                  <Brightness7Icon />
-                </Event>
-                <Event left="11:00" right="Start Making!" color="secondary">
-                  <BuildIcon />
-                </Event>
-                <Event left="12:00" right="午餐" color="primary">
-                  <RestaurantIcon />
-                </Event>
-                <Event left="18:00" right="晚餐" color="primary">
-                  <RestaurantIcon />
-                </Event>
-                <Event left="21:00" right="宵夜" color="primary">
-                  <RestaurantIcon />
-                </Event>
-              </Date>
-              <Date date="5 / 9">
-                <Event left="07:00" right="早餐" color="primary">
-                  <RestaurantIcon />
-                </Event>
-                <Event left="11:00" right="Stop Making!" color="secondary">
-                  <BuildIcon />
-                </Event>
-                <Event left="11:30" right="午餐" color="primary">
-                  <RestaurantIcon />
-                </Event>
-                <Event left="12:00" right="分組評選" color="primary">
-                  <PollIcon />
-                </Event>
-                <Event left="16:00" right="八強決選" color="primary">
-                  <PollIcon />
-                </Event>
-                <Event left="17:00" right="頒獎典禮" color="primary">
-                  <EqualizerIcon />
-                </Event>
-                <Event left="18:00" right="落幕" next=" " color="primary">
-                  <Brightness2Icon />
-                </Event>
+                <Event data={day[0].events[0]} />
+                <Event data={day[0].events[1]} />
+                <Event data={day[0].events[2]} />
+                <Event data={day[0].events[3]} />
+                <Event data={day[0].events[4]} />
+                <Event data={day[0].events[5]} />
               </Date>
             </Grid>
           </ThemeProvider>
