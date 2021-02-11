@@ -30,18 +30,22 @@ const useStyles = makeStyles((theme) => ({
 export default function HyChouTimeline() {
   const data = useStaticQuery(graphql`
     {
-      allContentfulTimeline {
+      allContentfulTimelineData {
         edges {
           node {
             id
-            date
-            events {
-              events {
-                color
-                end
-                icon
-                text
-                time
+            data {
+              dayCount
+              days {
+                date
+                eventCount
+                events {
+                  color
+                  end
+                  icon
+                  text
+                  time
+                }
               }
             }
           }
@@ -49,36 +53,12 @@ export default function HyChouTimeline() {
       }
     }
   `);
-  const dateData = [
-    data.allContentfulTimeline.edges[0].node.date,
-    data.allContentfulTimeline.edges[1].node.date,
-  ];
-  const eventData = [
-    data.allContentfulTimeline.edges[0].node.events.events,
-    data.allContentfulTimeline.edges[1].node.events.events,
-  ];
+  const day = data.allContentfulTimelineData.edges[0].node.data.days;
+  const day1 = day[0];
+  const day1event1 = day[0].events[0];
+  // return <pre>{JSON.stringify(day1, null, 4)}</pre>;
 
   const classes = useStyles();
-
-  const TimelineIcon = (props) => {
-    if (props.icon === "BuildIcon") {
-      return <BuildIcon />;
-    } else if (props.icon === "Brightness2Icon") {
-      return <Brightness2Icon />;
-    } else if (props.icon === "Brightness7Icon") {
-      return <Brightness7Icon />;
-    } else if (props.icon === "RestaurantIcon") {
-      return <RestaurantIcon />;
-    } else if (props.icon === "HowToRegIcon") {
-      return <HowToRegIcon />;
-    } else if (props.icon === "EqualizerIcon") {
-      return <EqualizerIcon />;
-    } else if (props.icon === "PollIcon") {
-      return <PollIcon />;
-    } else {
-      return <svg />;
-    }
-  };
 
   const Event = (props) => {
     return (
@@ -91,28 +71,28 @@ export default function HyChouTimeline() {
           spacing={1}
         >
           <Grid item xs={4}>
-            <Typography variant="subtitle1" color={props.data.color}>
-              <Box textAlign="right" letterSpacing={1}>
-                {props.data.time}
-              </Box>
-            </Typography>
+            <Box textAlign="center">
+              <Typography variant="subtitle1" color={props.color || "primary"}>
+                {props.left || "error"}
+              </Typography>
+            </Box>
           </Grid>
           <Grid item xs={3}>
-            <Avatar className={classes.avatar}>
-              <TimelineIcon icon={props.data.icon} />
-            </Avatar>
+            <Box textAlign="center">
+              <Avatar className={classes.avatar}>{props.children}</Avatar>
+            </Box>
           </Grid>
           <Grid item xs={4}>
-            <Typography variant="subtitle1" color={props.data.color}>
-              <Box textAlign="left" overflow="visible" whiteSpace="nowrap">
-                {props.data.text}
-              </Box>
-            </Typography>
+            <Box textAlign="left" overflow="visible" whiteSpace="nowrap">
+              <Typography variant="subtitle1" color={props.color || "primary"}>
+                {props.right || "error"}
+              </Typography>
+            </Box>
           </Grid>
         </Grid>
         <Box my={-1.5} textAlign="center">
           <Typography variant="subtitle1" color="primary">
-            {props.data.end ? "" : "|"}
+            {props.next || "|"}
           </Typography>
         </Box>
       </Box>
@@ -151,22 +131,48 @@ export default function HyChouTimeline() {
               alignItems="flex-start"
               spacing={5}
             >
-              <Date date={dateData[0]}>
-                <Event data={eventData[0][0]} />
-                <Event data={eventData[0][1]} />
-                <Event data={eventData[0][2]} />
-                <Event data={eventData[0][3]} />
-                <Event data={eventData[0][4]} />
-                <Event data={eventData[0][5]} />
+              <Date date="5 / 8">
+                <Event left="09:00" right="報到" color="primary">
+                  <HowToRegIcon />
+                </Event>
+                <Event left="10:00" right="開幕" color="primary">
+                  <Brightness7Icon />
+                </Event>
+                <Event left="11:00" right="Start Making!" color="secondary">
+                  <BuildIcon />
+                </Event>
+                <Event left="12:00" right="午餐" color="primary">
+                  <RestaurantIcon />
+                </Event>
+                <Event left="18:00" right="晚餐" color="primary">
+                  <RestaurantIcon />
+                </Event>
+                <Event left="21:00" right="宵夜" color="primary">
+                  <RestaurantIcon />
+                </Event>
               </Date>
-              <Date date={dateData[1]}>
-                <Event data={eventData[1][0]} />
-                <Event data={eventData[1][1]} />
-                <Event data={eventData[1][2]} />
-                <Event data={eventData[1][3]} />
-                <Event data={eventData[1][4]} />
-                <Event data={eventData[1][5]} />
-                <Event data={eventData[1][6]} />
+              <Date date="5 / 9">
+                <Event left="07:00" right="早餐" color="primary">
+                  <RestaurantIcon />
+                </Event>
+                <Event left="11:00" right="Stop Making!" color="secondary">
+                  <BuildIcon />
+                </Event>
+                <Event left="11:30" right="午餐" color="primary">
+                  <RestaurantIcon />
+                </Event>
+                <Event left="12:00" right="分組評選" color="primary">
+                  <PollIcon />
+                </Event>
+                <Event left="16:00" right="八強決選" color="primary">
+                  <PollIcon />
+                </Event>
+                <Event left="17:00" right="頒獎典禮" color="primary">
+                  <EqualizerIcon />
+                </Event>
+                <Event left="18:00" right="落幕" next=" " color="primary">
+                  <Brightness2Icon />
+                </Event>
               </Date>
             </Grid>
           </ThemeProvider>

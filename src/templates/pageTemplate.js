@@ -5,7 +5,7 @@ import { graphql } from "gatsby";
 
 import Section from "sections/section";
 
-import HyChouTimeline from "sections/hyChouTimeline";
+// import HyChouTimeline from "sections/hyChouTimeline";
 
 export const query = graphql`
   query($slug: String!) {
@@ -51,7 +51,7 @@ export default function PageTemplate({ data }) {
             key={content.id}
           />
         ))}
-      <HyChouTimeline />
+      {/* <HyChouTimeline /> */}
     </Layout>
   );
 }
