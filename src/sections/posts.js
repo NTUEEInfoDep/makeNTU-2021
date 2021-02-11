@@ -46,12 +46,12 @@ const Posts = ({ contentModuleId }) => {
                 <h2 className="section__title text-center mb-16" data-sal="fade" data-sal-easing="ease-in-cubic">
                     {content.node.heading}{" "}
                 </h2>
-                <ul className="post-list" data-sal="fade" data-sal-easing="ease-in-cubic">
+                <ul className="post-list mb-10" data-sal="fade" data-sal-easing="ease-in-cubic">
                     {content.node.posts.map((post) => {
                         if (post.tags.includes("important")) {
                             return (
                                 <Link className="hover-red uppercase" to={`/post/${post.slug}`}>
-                                    <li className="mb-10" key={post.slug} id={post.slug}>
+                                    <li className="mb-16" key={post.slug} id={post.slug}>
                                         <PostPreview post={post} key={post.id} />
                                     </li>
                                 </Link>
