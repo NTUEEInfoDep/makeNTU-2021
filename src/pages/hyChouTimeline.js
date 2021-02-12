@@ -35,8 +35,8 @@ export default function HyChouTimeline() {
               date
               events {
                 color
-                end
                 icon
+                notEnd
                 text
                 time
               }
@@ -121,6 +121,7 @@ export default function HyChouTimeline() {
           direction="row"
           justify="center"
           alignItems="center"
+          wrap="nowrap"
           spacing={1}
         >
           <TimelineEventLeft color={props.color}>
@@ -146,10 +147,13 @@ export default function HyChouTimeline() {
             return (
               <TimelineEvent
                 color={event.color}
-                end={event.end}
-                center={event.icon || ""}
-                left={event.time || "error"}
-                right={event.text || "error"}
+                end={
+                  !event.notEnd &&
+                  props.eventData[props.eventData.length - 1] === event
+                }
+                center={event.icon}
+                left={event.time}
+                right={event.text}
               />
             );
           })}
