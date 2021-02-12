@@ -12,7 +12,6 @@ import RestaurantIcon from "@material-ui/icons/Restaurant";
 import HowToRegIcon from "@material-ui/icons/HowToReg";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
 import PollIcon from "@material-ui/icons/Poll";
-import { element } from "prop-types";
 
 const theme = createMuiTheme({
   palette: {
@@ -32,19 +31,14 @@ export default function HyChouTimeline() {
       allContentfulTimelineData {
         edges {
           node {
-            id
             data {
-              dayCount
-              days {
-                date
-                eventCount
-                events {
-                  color
-                  end
-                  icon
-                  text
-                  time
-                }
+              date
+              events {
+                color
+                end
+                icon
+                text
+                time
               }
             }
           }
@@ -52,7 +46,8 @@ export default function HyChouTimeline() {
       }
     }
   `);
-  const timeline = staticQueryData.allContentfulTimelineData.edges[0].node.data;
+  const timelineData =
+    staticQueryData.allContentfulTimelineData.edges[0].node.data;
 
   const classes = useStyles();
 
@@ -72,13 +67,55 @@ export default function HyChouTimeline() {
     } else if (props.type === "PollIcon") {
       return <PollIcon />;
     } else {
-      return <BuildIcon />;
+      return <>{props.type}</>;
     }
   };
 
-  const Event = (props) => {
+  const TimelineEventLeft = (props) => {
     return (
-      <Box minWidth={250}>
+      <Grid item xs={4}>
+        <Typography color={props.color || "primary"}>
+          <Box textAlign="right" overflow="visable" whiteSpace="nowrap">
+            {props.children}
+          </Box>
+        </Typography>
+      </Grid>
+    );
+  };
+
+  const TimelineEventCenter = (props) => {
+    return (
+      <Grid item>
+        <Avatar className={classes.avatar}>{props.children}</Avatar>
+      </Grid>
+    );
+  };
+
+  const TimelineEventRight = (props) => {
+    return (
+      <Grid item xs={4}>
+        <Typography color={props.color || "primary"}>
+          <Box textAlign="left" overflow="visable" whiteSpace="nowrap">
+            {props.children}
+          </Box>
+        </Typography>
+      </Grid>
+    );
+  };
+
+  const TimelineEventConnector = (props) => {
+    return (
+      <Typography color="primary">
+        <Box my={-1.2} textAlign="center">
+          {props.end ? "" : "|"}
+        </Box>
+      </Typography>
+    );
+  };
+
+  const TimelineEvent = (props) => {
+    return (
+      <>
         <Grid
           container
           direction="row"
@@ -86,41 +123,35 @@ export default function HyChouTimeline() {
           alignItems="center"
           spacing={1}
         >
-          <Grid item xs={4}>
-            <Typography color={props.event.color || "primary"}>
-              <Box textAlign="right">{props.event.time || "error"}</Box>
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Box>
-              <Avatar className={classes.avatar}>
-                <TimelineIcon type={props.event.icon} />
-              </Avatar>
-            </Box>
-          </Grid>
-          <Grid item xs={4}>
-            <Typography color={props.event.color || "primary"}>
-              <Box textAlign="left" overflow="visable" whiteSpace="nowrap">
-                {props.event.text || "error"}
-              </Box>
-            </Typography>
-          </Grid>
+          <TimelineEventLeft color={props.color}>
+            {props.left}
+          </TimelineEventLeft>
+          <TimelineEventCenter>
+            <TimelineIcon type={props.center} />
+          </TimelineEventCenter>
+          <TimelineEventRight color={props.color}>
+            {props.right}
+          </TimelineEventRight>
         </Grid>
-        <Typography color="primary">
-          <Box my={-1.2} textAlign="center">
-            {props.event.end ? "" : "|"}
-          </Box>
-        </Typography>
-      </Box>
+        <TimelineEventConnector end={props.end} />
+      </>
     );
   };
 
-  const Events = (props) => {
-    if (props.events.length) {
+  const TimelineEvents = (props) => {
+    if (props.eventData.length) {
       return (
         <>
-          {props.events.map((element) => {
-            return <Event event={element} />;
+          {props.eventData.map((event) => {
+            return (
+              <TimelineEvent
+                color={event.color}
+                end={event.end}
+                center={event.icon || ""}
+                left={event.time || "error"}
+                right={event.text || "error"}
+              />
+            );
           })}
         </>
       );
@@ -128,29 +159,29 @@ export default function HyChouTimeline() {
     return <>error</>;
   };
 
-  const Day = (props) => {
+  const TimelineCard = (props) => {
     return (
       <Grid item>
         <Paper elevation={3} className={classes.paper}>
           <Box py={2}>
             <Typography variant="h5" color="primary">
               <Box mb={3} textAlign="center">
-                {props.day.date}
+                {props.title}
               </Box>
             </Typography>
-            <Events count={props.day.eventCount} events={props.day.events} />
+            <TimelineEvents eventData={props.events} />
           </Box>
         </Paper>
       </Grid>
     );
   };
 
-  const TimelineDays = (props) => {
-    if (props.days.length) {
+  const TimelineCards = (props) => {
+    if (props.data.length) {
       return (
         <>
-          {props.days.map((element) => {
-            return <Day day={element} />;
+          {props.data.map((day) => {
+            return <TimelineCard title={day.date || ""} events={day.events} />;
           })}
         </>
       );
@@ -159,25 +190,23 @@ export default function HyChouTimeline() {
   };
 
   return (
-    <>
-      <section className="section bg-gray">
-        <div className="container mx-auto">
-          <h2 className="text-center section__title mb-16">活動時程</h2>
-          <div className={classes.root}>
-            <ThemeProvider theme={theme}>
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="flex-start"
-                spacing={5}
-              >
-                <TimelineDays count={timeline.dayCount} days={timeline.days} />
-              </Grid>
-            </ThemeProvider>
-          </div>
+    <section className="section bg-gray">
+      <div className="container mx-auto">
+        <h2 className="text-center section__title mb-16">活動時程</h2>
+        <div className={classes.root}>
+          <ThemeProvider theme={theme}>
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="flex-start"
+              spacing={5}
+            >
+              <TimelineCards data={timelineData} />
+            </Grid>
+          </ThemeProvider>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
