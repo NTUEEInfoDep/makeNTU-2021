@@ -12,6 +12,7 @@ import RestaurantIcon from "@material-ui/icons/Restaurant";
 import HowToRegIcon from "@material-ui/icons/HowToReg";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
 import PollIcon from "@material-ui/icons/Poll";
+import { element } from "prop-types";
 
 const theme = createMuiTheme({
   palette: {
@@ -115,30 +116,16 @@ export default function HyChouTimeline() {
   };
 
   const Events = (props) => {
-    if (props.count === 6) {
+    if (props.events.length) {
       return (
         <>
-          <Event event={props.events[0]} />
-          <Event event={props.events[1]} />
-          <Event event={props.events[2]} />
-          <Event event={props.events[3]} />
-          <Event event={props.events[4]} />
-          <Event event={props.events[5]} />
-        </>
-      );
-    } else if (props.count === 7) {
-      return (
-        <>
-          <Event event={props.events[0]} />
-          <Event event={props.events[1]} />
-          <Event event={props.events[2]} />
-          <Event event={props.events[3]} />
-          <Event event={props.events[4]} />
-          <Event event={props.events[5]} />
-          <Event event={props.events[6]} />
+          {props.events.map((element) => {
+            return <Event event={element} />;
+          })}
         </>
       );
     }
+    return <>error</>;
   };
 
   const Day = (props) => {
@@ -158,35 +145,39 @@ export default function HyChouTimeline() {
     );
   };
 
-  const Days = (props) => {
-    if (props.count === 2) {
+  const TimelineDays = (props) => {
+    if (props.days.length) {
       return (
         <>
-          <Day day={props.days[0]} />
-          <Day day={props.days[1]} />
+          {props.days.map((element) => {
+            return <Day day={element} />;
+          })}
         </>
       );
     }
+    return <>error</>;
   };
 
   return (
-    <section className="section bg-gray">
-      <div className="container mx-auto">
-        <h2 className="text-center section__title mb-16">活動時程</h2>
-        <div className={classes.root}>
-          <ThemeProvider theme={theme}>
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="flex-start"
-              spacing={5}
-            >
-              <Days count={timeline.dayCount} days={timeline.days} />
-            </Grid>
-          </ThemeProvider>
+    <>
+      <section className="section bg-gray">
+        <div className="container mx-auto">
+          <h2 className="text-center section__title mb-16">活動時程</h2>
+          <div className={classes.root}>
+            <ThemeProvider theme={theme}>
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="flex-start"
+                spacing={5}
+              >
+                <TimelineDays count={timeline.dayCount} days={timeline.days} />
+              </Grid>
+            </ThemeProvider>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
