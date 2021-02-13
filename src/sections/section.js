@@ -1,15 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Hero from "sections/hero";
 import About from "sections/about";
-import Testimonials from "sections/testimonials";
-import Services from "sections/services";
-import Pricing from "sections/pricing";
 import Contact from "sections/contact";
+import Hero from "sections/hero";
+// import timeline from "sections/timeline";
 import PageNotFound from "sections/pageNotFound";
 import Posts from "sections/posts";
 import Sponsors from "sections/sponsors";
 import Location from "sections/location";
+import Pricing from "sections/pricing";
+import Services from "sections/services";
+import Testimonials from "sections/testimonials";
 
 // Dynamically import or require sections inside the section folder
 const components = {
@@ -17,12 +18,13 @@ const components = {
   About,
   Posts,
   Testimonials,
-  Services,
-  Pricing,
-  Contact,
+  // Services,
+  // Pricing,
+
   PageNotFound,
-  Sponsors,
   Location,
+  Contact,
+  Sponsors,
 };
 
 const Section = ({ contentModuleId, type }) => {
