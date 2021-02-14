@@ -10,11 +10,12 @@ const SponsorItem = ({ href, fluid }) => (
 );
 
 const SponsorTable = ({ feature }) => {
+    let f = feature.slice(0, feature.length);
     if (feature.length > 4) {
         let k = [];
-        while (feature.length > 0){
-            const f = feature.splice(0, 4);
-            k.push(f);
+        while (f.length > 0){
+            const g = f.splice(0, 4);
+            k.push(g);
         }
         return(
             <table width="65%" className="mx-auto">

@@ -40,7 +40,7 @@ const Sponsors = ({ contentModuleId }) => {
     `);
 
     const content = data.allContentfulLayoutSponsors.edges.find(edge => edge.node.id === contentModuleId);
-
+    console.log(content.node.image_sponsors);
     return (
         <section id="sponsors" className="section mx-auto">
           <div className="container mx-auto">
