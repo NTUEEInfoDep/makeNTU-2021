@@ -8,22 +8,21 @@ import PageNotFound from "sections/pageNotFound";
 import Posts from "sections/posts";
 import Sponsors from "sections/sponsors";
 import Location from "sections/location";
-import Pricing from "sections/pricing";
-import Services from "sections/services";
-import Testimonials from "sections/testimonials";
+// import Pricing from "sections/pricing";
+// import Services from "sections/services";
+// import Testimonials from "sections/testimonials";
 
 // Dynamically import or require sections inside the section folder
 const components = {
   Hero,
   About,
   Posts,
-  Testimonials,
+  // Testimonials,
   // Services,
   // Pricing,
-
   PageNotFound,
-  Location,
   Contact,
+  Location,
   Sponsors,
 };
 
