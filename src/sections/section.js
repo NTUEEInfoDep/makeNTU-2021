@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import About from "sections/about";
+import Prizes from "sections/prizes";
 import Contact from "sections/contact";
 import Hero from "sections/hero";
-// import timeline from "sections/timeline";
+// import HyChouTimeline from "sections/timeline";
+import Timeline from "sections/timeline";
 import PageNotFound from "sections/pageNotFound";
 import Posts from "sections/posts";
 import Sponsors from "sections/sponsors";
@@ -20,10 +22,12 @@ const components = {
   // Testimonials,
   // Services,
   // Pricing,
+  Timeline,
   PageNotFound,
   Contact,
   Location,
   Sponsors,
+  Prizes,
 };
 
 const Section = ({ contentModuleId, type }) => {

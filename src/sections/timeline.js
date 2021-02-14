@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   paper: { padding: theme.spacing(2, 8) },
 }));
 
-export default function HyChouTimeline() {
+export default ({ contentModuleId }) => {
   const staticQueryData = useStaticQuery(graphql`
     {
       allContentfulTimelineData {
@@ -213,4 +213,4 @@ export default function HyChouTimeline() {
       </div>
     </section>
   );
-}
+};
