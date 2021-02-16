@@ -5,7 +5,7 @@ import About from "sections/about";
 import Prizes from "sections/prizes";
 import Contact from "sections/contact";
 import Hero from "sections/hero";
-import Timeline from "sections/timeline";
+// import Timeline from "sections/timeline";
 import PageNotFound from "sections/pageNotFound";
 import Posts from "sections/posts";
 import Sponsors from "sections/sponsors";
@@ -19,7 +19,7 @@ const components = {
   About,
   Posts,
   Prizes,
-  Timeline,
+  // Timeline,
   Location,
   Sponsors,
   Contact,
