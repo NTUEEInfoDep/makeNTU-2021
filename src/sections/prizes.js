@@ -104,7 +104,7 @@ const Prizes = ({ contentModuleId }) => {
         style={{ marginRight: "10px" }}
       >
         <h2
-          className="w-full font-bold leading-none section__title mb-16"
+          className="w-full font-bold leading-none section__title"
           data-sal="fade"
           data-sal-easing="ease-in-cubic"
           style={{ textAlign: "center" }}
@@ -150,7 +150,7 @@ const Prizes = ({ contentModuleId }) => {
       </div>
       <div className="w-full md:w-1/2 pl-0 text-center md:text-left">
         <h2
-          className="w-full font-bold leading-none section__title mb-16"
+          className="w-full font-bold leading-none section__title"
           data-sal="fade"
           data-sal-easing="ease-in-cubic"
           style={{ textAlign: "center" }}
